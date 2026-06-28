@@ -1,0 +1,41 @@
+# Example wrangler.toml for Cf-Worker-telegram-bot
+
+# Replace placeholders (values in <...>) with your actual Cloudflare account settings.
+# Save this file alongside worker.js and use `wrangler publish` to deploy.
+
+name = "cf-worker-telegram-bot"
+main = "worker.js"
+compatibility_date = "2026-06-28"
+# type can be "javascript" or "webpack" depending on your setup. For simple worker.js use "javascript".
+type = "javascript"
+
+# If you want to publish to workers.dev, set workers_dev = true
+workers_dev = true
+
+# If you want to bind to a specific route, fill route and zone_id (leave empty for workers_dev)
+# route = "example.com/telegram"
+# zone_id = "<YOUR_ZONE_ID>"
+
+# Your Cloudflare account id (required for some wrangler commands). Get it from Cloudflare dashboard.
+account_id = "<YOUR_ACCOUNT_ID>"
+
+# Environment variables (not secrets) can be placed here as examples. For real tokens use `wrangler secret put` or Cloudflare dashboard.
+[vars]
+BOT_TOKEN = ""
+SECRET_TOKEN = ""
+LOG_CHAT_ID = ""
+
+# Workers KV namespace binding example. Create a KV namespace in Cloudflare and paste its id here.
+[[kv_namespaces]]
+binding = "SESSIONS"
+# id = "<KV_NAMESPACE_ID>"
+
+# If you use modules (ESM) or build steps, you can add a [build] section. For this simple example none is needed.
+
+# Quick usage:
+# 1) Install wrangler: npm install -g @cloudflare/wrangler
+# 2) Authenticate: wrangler login
+# 3) Replace <YOUR_ACCOUNT_ID> and (optionally) kv namespace id and route/zone_id
+# 4) If BOT_TOKEN is sensitive, run: wrangler secret put BOT_TOKEN
+#    and for SECRET_TOKEN: wrangler secret put SECRET_TOKEN
+# 5) Publish: wrangler publish
